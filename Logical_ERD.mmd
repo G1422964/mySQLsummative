@@ -1,0 +1,70 @@
+%% Recreated as editable Mermaid code from Umer's original logical ERD (Figure A2).
+%% The PNG is the EXACT image embedded in the supplied assignment.
+%% This source is an editable reconstruction, not the original diagram project.
+erDiagram
+    SPECIALTIES ||--o{ CLINICIANS : has
+    PATIENTS ||--o{ APPOINTMENTS : attends
+    CLINICIANS ||--o{ APPOINTMENTS : conducts
+    CLINICS ||--o{ APPOINTMENTS : hosts
+    APPOINTMENTS ||--o{ DIAGNOSES : has
+    APPOINTMENTS ||--o{ PRESCRIPTIONS : may_issue
+    APPOINTMENTS ||--o| FOLLOWUP_PLANS : may_schedule
+    PRESCRIPTIONS ||--|{ PRESCRIPTION_ITEMS : contains
+    MEDICINES ||--o{ PRESCRIPTION_ITEMS : appears_in
+
+    SPECIALTIES {
+        int specialty_id PK
+        varchar specialty_name UK
+    }
+    CLINICIANS {
+        int clinician_id PK
+        varchar full_name
+        int specialty_id FK
+    }
+    PATIENTS {
+        char patient_id PK
+        varchar full_name
+        varchar postcode
+    }
+    CLINICS {
+        int clinic_id PK
+        varchar clinic_name UK
+    }
+    APPOINTMENTS {
+        int appointment_id PK
+        char patient_id FK
+        int clinician_id FK
+        int clinic_id FK
+        date appointment_date
+        time appointment_time
+        varchar notes
+    }
+    DIAGNOSES {
+        int diagnosis_id PK
+        int appointment_id FK
+        varchar diagnosis_text
+    }
+    PRESCRIPTIONS {
+        int prescription_id PK
+        int appointment_id FK
+        date issued_date
+    }
+    PRESCRIPTION_ITEMS {
+        int prescription_id PK, FK
+        int medicine_id PK, FK
+        varchar dose
+        varchar route
+        varchar frequency
+        int duration_days
+    }
+    MEDICINES {
+        int medicine_id PK
+        varchar medicine_name
+    }
+    FOLLOWUP_PLANS {
+        int followup_id PK
+        int appointment_id FK, UK
+        date due_date
+        enum priority
+        enum status
+    }

@@ -1,0 +1,11 @@
+%% Editable reconstruction of the conceptual model from Umer's Figure A1.
+erDiagram
+    SPECIALTIES ||--o{ CLINICIANS : groups
+    PATIENTS ||--o{ APPOINTMENTS : attends
+    CLINICIANS ||--o{ APPOINTMENTS : sees
+    CLINICS ||--o{ APPOINTMENTS : hosts
+    APPOINTMENTS ||--o{ DIAGNOSES : leads_to
+    APPOINTMENTS ||--o{ PRESCRIPTIONS : leads_to
+    APPOINTMENTS ||--o| FOLLOW_UP_PLAN : may_have
+    PRESCRIPTIONS ||--|{ PRESCRIPTION_ITEM : contains
+    MEDICINES ||--o{ PRESCRIPTION_ITEM : used_by
